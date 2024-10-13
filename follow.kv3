@@ -1,0 +1,90 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7}-->
+{
+	config = "scripts/ai/deathmatch/bt_config.kv3"
+	root =
+	{
+		type = "parallel"
+		children =
+		[
+			{
+				type = "decorator_repeat"
+                child =
+                    {
+                        type = "decorator_sensor"
+                        entity_type_filter = "PLAYERS"
+                        shape = 
+                            {
+                                type = "sensor_shape_sphere"
+                                radius = 5000
+                            }
+                        team_filter = "OPPOSITE"
+                        output = "HuntedPlayer"
+                        class_name = "player"
+	                    priority = 1
+                        child = 
+                            {
+                                type = "decorator_ranker_dist"
+                                input = "HuntedPlayer"
+                                child =
+                                {
+                                    type = "decorator_picker_max_score"
+                                    input = "HuntedPlayer"
+                                    child =
+                                    {
+                                        type = "condition_is_empty"
+                                        input = "HuntedPlayer"
+                                        negated = 1
+                                        child =
+                                        {
+                                            type = "action_move_to"
+                                            destination = "HuntedPlayer"
+                                            movement_type = "BT_ACTION_MOVETO_RUN"
+                                            route_type = "BT_ACTION_MOVETO_FASTEST_ROUTE"
+                                            auto_look_adjust = 1
+                                        }
+                                    }
+                                }
+                            }
+                    }
+			},
+            {
+				type = "decorator_repeat"
+                child =
+                    {
+                        type = "decorator_sensor"
+                        entity_type_filter = "PLAYERS"
+                        shape = 
+                            {
+                                type = "sensor_shape_sphere"
+                                radius = 5000
+                            }
+                        team_filter = "OPPOSITE"
+                        output = "HuntedPlayer"
+                        class_name = "player"
+	                    priority = 1
+                        child = 
+                            {
+                                type = "decorator_ranker_dist"
+                                input = "HuntedPlayer"
+                                child =
+                                {
+                                    type = "decorator_picker_max_score"
+                                    input = "HuntedPlayer"
+                                    child =
+                                    {
+                                        type = "condition_is_empty"
+                                        input = "HuntedPlayer"
+                                        negated = 1
+                                        child =
+                                        {
+                                            type = "action_aim"
+                                            input = "HuntedPlayer"
+                                        }
+                                    }
+                                }
+                            }
+                    }
+			}
+		]
+	}
+}
